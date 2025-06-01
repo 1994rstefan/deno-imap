@@ -223,7 +223,7 @@ export class ImapClient {
 
     // Check if the server supports the requested auth mechanism
     const authCap = `AUTH=${mechanism}`;
-    if (!this._capabilities.has(authCap)) {
+    if (!this._capabilities.has(authCap)  && !(this._capabilities.has('IMAP4rev1') && (mechanism === 'PLAIN' || (mechanism === 'LOGIN' && !this._capabilities.has('LOGINDISABLED'))) {
       throw new ImapCapabilityError(authCap);
     }
 
